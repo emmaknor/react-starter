@@ -38,15 +38,16 @@ class Movies extends React.Component {
   render () {
     return (
       <div className="movie">
-        <div onClick={() => this.panelView()}>
+        <div className="movie-title"onClick={() => this.panelView()}>
           {this.props.movie.title}
         </div>
         {
           this.state.togglePanel ?
           <div>
-            <p>Year: {this.props.movie.Year}</p>
-            <p>Runtime: {this.props.movie.Runtime}</p>
-            <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qfx2EENW1sOpKNVKLzr7VOhlxkt.jpg"/>
+            <p>Release Date: {this.props.movie.release_date}</p>
+            <p>Vote Average: {this.props.movie.vote_average}</p>
+            <p>Popularity Score: {this.props.movie.popularity}</p>
+            <img src={`https://image.tmdb.org/t/p/w185${this.props.movie.poster_path}`}/>
             <button type="submit" className="watched-button" onClick={() => this.props.addToWatched(this.props.movie)}>Watched</button>
             </div> : null
         }

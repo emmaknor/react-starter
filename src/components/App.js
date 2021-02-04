@@ -3,16 +3,15 @@ import MovieList from '../../src/components/MovieList.js';
 import AddMovie from '../../src/components/AddMovie.js';
 import CSS from '../../src/main.css';
 import $ from 'jquery';
-import exampleData from '../../src/exampleData.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: exampleData,
+      movies: [],
       watchedMovies: [],
-      toWatchMovies: exampleData,
+      toWatchMovies: [],
       movieSearchText: "",
       movieAddText: "",
     };
@@ -24,6 +23,18 @@ class App extends React.Component {
     this.watched = this.watched.bind(this);
     this.toWatch = this.toWatch.bind(this);
     this.addToWatched = this.addToWatched.bind(this);
+    this.getMovieInformation = this.getMovieInformation.bind(this);
+    this.getMovieInformation();
+  }
+
+  getMovieInformation () {
+    this.props.searchTMBD((results) => {
+      console.log('Movie results fetched succesfully :)');
+      this.setState({
+        movies: results.results,
+        toWatchMovies: results.results
+      })
+    });
   }
 
   goClick (e) {
@@ -107,15 +118,15 @@ class App extends React.Component {
         <h2 className="movie-list-title">Movie List</h2>
         <form>
           <input type="text" placeholder="Add movie title here" id="movie-add" onChange={this.addTextChange}/>
-          <button type="submit" onClick={this.addClick}>Add!</button>
+          <button type="submit" className="input-button" onClick={this.addClick}>Add!</button>
         </form>
 
         <form>
           <input type="text" placeholder="Search..." id="movie-search" onChange={this.searchTextChange}/>
-          <button type="submit" onClick={this.goClick}>Go!</button>
+          <button type="submit" className="input-button" onClick={this.goClick}>Go!</button>
         </form>
-        <button type="submit" onClick={this.watched}>Watched</button>
-        <button type="submit" onClick={this.toWatch}>To Watch</button>
+        <button type="submit" className="watch-toggles" onClick={this.watched}>Watched</button>
+        <button type="submit" className="watch-toggles" onClick={this.toWatch}>To Watch</button>
         <MovieList movies={this.state.movies}
         addToWatched={this.addToWatched}
         watchedMovies={this.state.watchedMovies}
