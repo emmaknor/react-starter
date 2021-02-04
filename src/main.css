@@ -1,0 +1,13 @@
+.movie-list-title {
+  background-color: #c38d9e;
+}
+
+.watched-button {
+  margin-left: 120px;
+}
+
+#app {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: #41b3a3;
+  color: #f2f2f2
+}

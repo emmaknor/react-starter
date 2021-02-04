@@ -1,33 +1,34 @@
 import React from 'react';
 import MovieList from '../../src/components/MovieList.js';
 import AddMovie from '../../src/components/AddMovie.js';
+import CSS from '../../src/main.css';
+import $ from 'jquery';
+import exampleData from '../../src/exampleData.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: [
-        {title: 'Mean Girls'},
-        {title: 'Hackers'},
-        {title: 'The Grey'},
-        {title: 'Sunshine'},
-        {title: 'Ex Machina'},
-      ],
+      movies: exampleData,
+      watchedMovies: [],
+      toWatchMovies: exampleData,
       movieSearchText: "",
-      movieAddText: ""
+      movieAddText: "",
     };
 
     this.goClick = this.goClick.bind(this);
     this.addClick = this.addClick.bind(this);
     this.searchTextChange = this.searchTextChange.bind(this);
     this.addTextChange = this.addTextChange.bind(this);
+    this.watched = this.watched.bind(this);
+    this.toWatch = this.toWatch.bind(this);
+    this.addToWatched = this.addToWatched.bind(this);
   }
 
-  // on click of go
   goClick (e) {
     e.preventDefault();
-    // use movie search text to search through movies & provide whichever data we want
+    // if movie includes searched text, display movie, otherwise display "no movie by that name found"
     (this.state.movies.filter((movie, i) => {
       if (movie.title.toLowerCase().includes(this.state.movieSearchText.toLowerCase())) {
         return movie;
@@ -56,7 +57,7 @@ class App extends React.Component {
     document.getElementById('movie-add').value = '';
   }
 
-  // capture input from search bar when go is clicked & set state.movieSearchText equal to the value w/in search bar
+  // capture input from search bar
   searchTextChange (e) {
     this.setState({
       movieSearchText: e.target.value
@@ -69,10 +70,40 @@ class App extends React.Component {
     })
   }
 
+  watched (e) {
+    this.setState({
+      movies: this.state.watchedMovies
+    })
+  }
+
+  toWatch (e) {
+    this.setState({
+      movies: this.state.toWatchMovies
+    })
+  }
+
+  // when the watched button is clicked for a given movie, add the movie to the add movie arr & take it out of the toWatch movie arr
+  addToWatched (movie) {
+    let toWatchCopy = this.state.toWatchMovies.slice();
+    let index = this.state.toWatchMovies.indexOf(movie);
+    this.setState({
+      watchedMovies: [...this.state.watchedMovies, movie]
+    })
+    toWatchCopy = toWatchCopy.filter((unwatchedMovie, i) => {
+      if (!unwatchedMovie.title.includes(movie.title)) {
+        return movie;
+      }
+    });
+    this.setState({
+      toWatchMovies: toWatchCopy
+    })
+
+  }
+
 
   render(){
     return(
-      <div className="app">
+      <div>
         <h2 className="movie-list-title">Movie List</h2>
         <form>
           <input type="text" placeholder="Add movie title here" id="movie-add" onChange={this.addTextChange}/>
@@ -83,7 +114,12 @@ class App extends React.Component {
           <input type="text" placeholder="Search..." id="movie-search" onChange={this.searchTextChange}/>
           <button type="submit" onClick={this.goClick}>Go!</button>
         </form>
-        <MovieList movies={this.state.movies}/>
+        <button type="submit" onClick={this.watched}>Watched</button>
+        <button type="submit" onClick={this.toWatch}>To Watch</button>
+        <MovieList movies={this.state.movies}
+        addToWatched={this.addToWatched}
+        watchedMovies={this.state.watchedMovies}
+        toWatchMovies={this.state.toWatchMovies}/>
       </div>
   )}
 }
