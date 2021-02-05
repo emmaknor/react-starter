@@ -1,34 +1,70 @@
+.innerApp {
+  margin-left: 20px;
+}
+
 .movie-list-title {
-  background-color: #fea49f;
+  background-color: #932432;
+  color: #f2f2f2;;
+  height: 70px;
+  width: 100%;
 }
 
 .input-button {
-  background-color: #fbaf08;
-  color: #101357;
+  height: 30px;
+  width: 70px;
+  margin: 0px 15px;
+  background-color: #283747;
+  color: #f2f2f2;
 }
 
 .watch-toggles {
-  background-color: #007f4f;
+  height: 30px;
+  width: 100px;
+  background-color: #3C1874;
   color: #f2f2f2
 }
 
 .movie {
-  border: 1.5px solid #fea49f;
-  display: grid;
+  border: 2.5px solid #932432;
 }
 
 .movie-title {
   font-weight: 600;
+  height: 50px;
+}
+
+.movie-details {
+  display: grid;
+  grid-template: 25% 37.5% 37.5% / 50% 50%;
 }
 
 .watched-button {
-  margin-left: 120px;
-  background-color: #fea49f;
-  color:  #101357
+  height: 20px;
+  width: 80px;
+  grid-row-start: 1;
+  grid-column-start: 2;
+  margin-left: 130px;
+  background-color: #283747;
+  color:  #f2f2f2
+}
+
+.image {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  margin: 3px 30px;
 }
 
 #app {
+  display: flex;
+  height: 100%;
+  width: 100%;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  background-color: #101357;
-  color: #f2f2f2
+  background-color: #f2f2f2;
+  color: #932432;
+}
+
+#movie-add, #movie-search {
+  height: 25px;
+  width: 300px;
+  margin: 10px 0px 12px 0px;
 }
